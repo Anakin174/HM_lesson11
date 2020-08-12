@@ -1,7 +1,7 @@
 pipeline {
     agent {
       docker {
-      image 'devcvs-srv01:5000/shop2-backend/jenkins-agent'
+      image 'YOU_REGISTRY'
             }
           }
         }
