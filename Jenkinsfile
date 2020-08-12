@@ -1,8 +1,12 @@
 pipeline {
-    agent any
-    tools {
-        maven "m3"
-    }
+    agent {
+      docker {
+      image 'devcvs-srv01:5000/shop2-backend/jenkins-agent'
+            }
+          }
+        }
+
+
     stages {
         stage('git') {
             steps {
