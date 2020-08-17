@@ -22,7 +22,7 @@ pipeline {
 
         stage ('Create image') {
             steps {
-                sh 'docker volume create -d local --name artifact && cp /boxfuse/target/*.war var/lib/docker/volume/artifact/_data && docker run -d -v artifact:/usr/local/tomcat/webapps --name app tomcat:latest && docker commit boxfuse boxfuse'
+                sh 'docker volume create -d local --name artifact && cp /var/jenkins_home/workspace/box/target/*.war var/lib/docker/volume/artifact/_data && docker run -d -v artifact:/usr/local/tomcat/webapps --name app tomcat:latest && docker commit boxfuse boxfuse'
             }
         }
 
