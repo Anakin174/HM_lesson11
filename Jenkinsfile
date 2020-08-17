@@ -22,8 +22,7 @@ pipeline {
 
          stage ('Build image and push to dockerhub') {
             steps {
-                sh 'docker build --tag=anakin174/boxfuse .'
-                sh 'docker push anakin174/boxfuse'
+                sh 'docker build --tag=anakin174/boxfuse . && docker push anakin174/boxfuse'
             }
         }
 
