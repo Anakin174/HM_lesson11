@@ -22,7 +22,7 @@ pipeline {
 
         stage ('Create image') {
             steps {
-                sh 'docker volume create -d local --name artifact && cp /boxfuse7/target/*.war var/lib/docker/volume/artifact/_data && docker run -d -v artifact:/usr/local/tomcat/webapps --name app tomcat:latest && docker commit boxfuse boxfuse'
+                sh 'docker volume create -d local --name artifact && cp /boxfuse/target/*.war var/lib/docker/volume/artifact/_data && docker run -d -v artifact:/usr/local/tomcat/webapps --name app tomcat:latest && docker commit boxfuse boxfuse'
             }
         }
 
@@ -35,7 +35,7 @@ pipeline {
         stage ('Deploy') {
             steps {
                 sshagent (credentials: ['ssh']) {
-                    sh 'ssh root@18.221.136.181 && docker pull anakin174/boxfuse && docker run -d boxfuse'
+                    sh 'ssh root@18.224.23.217 && docker pull anakin174/boxfuse && docker run -d boxfuse'
                 }
             }
         }
