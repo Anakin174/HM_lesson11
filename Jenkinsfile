@@ -27,12 +27,14 @@ pipeline {
         }
 
 
-        stage ('Deploy') {
+         stage ('Deploy image') {
             steps {
-                sshagent (credentials: ['ssh']) {
-                    sh 'ssh root@18.224.23.217 && docker pull anakin174/boxfuse && docker run -d -p 8282:8080 boxfuse'
+               sshagent(['test']) {
+                    sh 'docker pull anakin174/boxfuse && docker run -d -p 8282:8080 anakin174/boxfuse'
                 }
             }
+
+
         }
     }
 }
