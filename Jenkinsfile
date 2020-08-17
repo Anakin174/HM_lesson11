@@ -20,22 +20,18 @@ pipeline {
             }
         }
 
-        stage ('Create image') {
+         stage ('Build image and push to dockerhub') {
             steps {
-                sh 'docker volume create -d local --name artifact && cp /var/jenkins_home/workspace/box/target/*.war var/lib/docker/volume/artifact/_data && docker run -d -v artifact:/usr/local/tomcat/webapps --name app tomcat:latest && docker commit boxfuse boxfuse'
+                sh 'docker build --tag=anakin174/boxfuse .'
+                sh 'docker push anakin174/boxfuse'
             }
         }
 
-        stage ('Push image') {
-            steps {
-                sh ' docker tag boxfuse anakin174/boxfuse && docker push anakin174/boxfuse'
-            }
-        }
 
         stage ('Deploy') {
             steps {
                 sshagent (credentials: ['ssh']) {
-                    sh 'ssh root@18.224.23.217 && docker pull anakin174/boxfuse && docker run -d boxfuse'
+                    sh 'ssh root@18.224.23.217 && docker pull anakin174/boxfuse && docker run -d -p 8282:8080 boxfuse'
                 }
             }
         }
